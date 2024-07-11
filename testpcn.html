@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Progress Bar</title>
+    <style>
+        body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f5e6e6;
+    margin: 0;
+}
+
+.progress-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.progress-bar {
+    display: flex;
+    align-items: center;
+    position: relative;
+    width: 100%;
+    max-width: 800px;
+}
+
+.circle {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 40px;
+    height: 40px;
+    background-color: white;
+    border: 5px solid black;
+    border-radius: 50%;
+    position: relative;
+}
+
+.circle span {
+    color: black;
+    font-size: 24px;
+}
+
+.circle.completed {
+    background-color: green;
+}
+
+.circle.completed span {
+    color: white;
+}
+
+.line {
+    flex: 1;
+    height: 5px;
+    background-color: black;
+}
+
+.line.completed {
+    background-color: green;
+}
+
+.label {
+    position: absolute;
+    top: 50px;
+    white-space: nowrap;
+    text-align: center;
+    width: 100px;
+    left: -30px;
+}
+
+.comments {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 800px;
+    margin-top: 20px;
+}
+
+.comment {
+    text-align: center;
+    width: 33%;
+}
+
+    </style>
+</head>
+<body>
+    <div class="progress-container">
+        <div class="progress-bar">
+            <div class="circle completed"><span>✔</span><div class="label">User Details</div></div>
+            <div class="line completed"></div>
+            <div class="circle completed"><span>✔</span><div class="label">IT View</div></div>
+            <div class="line completed"></div>
+            <div class="circle completed"><span>✔</span><div class="label">BPI</div></div>
+            <div class="line completed"></div>
+            <div class="circle"><span></span><div class="label">Project Manager</div></div>
+            <div class="line"></div>
+            <div class="circle"><span></span><div class="label">IT Council</div></div>
+        </div>
+        <div class="comments">
+            <div class="comment">HOD Comments</div>
+            <div class="comment">BET/OET Comments</div>
+            <div class="comment">IT Review</div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

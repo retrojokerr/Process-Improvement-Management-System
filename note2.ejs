@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Request Entry Form</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            display: flex;
+            background-color: #EDDFDF;
+        }
+
+        .navbar {
+            position: fixed;
+            top: 0;
+            min-width: 100%;
+            z-index: 1000;
+        }
+
+        .navbar-text {
+            justify-content: right;
+            
+            font-size: small;
+            font-weight: 550;
+        }
+
+        .container2 {
+            margin-top: 100px; /* Adjust this value to match the height of your navbar */
+        }
+
+        .container {
+            margin-top: 100px;
+            display: flex;
+            width: 100%;
+        }
+
+        .sidebar {
+            background-color: #B62741;
+            color: white;
+            padding: 20px;
+            width: 250px;
+            height: 100vh; /* Set the height to 100% of the viewport height */
+            transition: width 0.3s;
+            position: fixed;
+            overflow: hidden; /* Hide overflow to make it unscrollable */
+        }
+
+        .sidebar.collapsed {
+            width: 50px;
+        }
+
+        .sidebar ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0; /* Remove default margin */
+        }
+
+        .sidebar ul li {
+            margin: 15px 0;
+        }
+
+        .sidebar ul li a {
+            color: white;
+            text-decoration: none;
+            display: block;
+            padding: 10px 0; /* Add padding for better spacing */
+        }
+
+        .login-info {
+            margin-top: 30px;
+            font-size: 14px;
+        }
+
+        .toggle-btn {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 20px;
+            cursor: pointer;
+            position: absolute;
+            top: 20px;
+            right: 20px;
+        }
+
+        .main-content {
+            margin-left: 270px;
+            flex-grow: 1;
+            padding: 20px;
+            transition: margin-left 0.3s;
+        }
+
+        .main-content.collapsed {
+            margin-left: 70px;
+        }
+
+        .main-content h2 {
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    
+    <nav class="navbar">
+        <div class="container-fluid" style="background-color: white; color: black;">
+            <img class="image" src="./bseslogo.png" height="80" width="130"/>
+          
+            <span class="navbar-text" style="font-size: small; font-weight: 550;">
+                Powered by : BSES
+            </span>
+          </div>
+        </div>
+    </nav>
+    
+    <div class="container">
+        <div class="sidebar" id="sidebar">
+            <button class="toggle-btn" id="toggle-btn">&#9776;</button>
+            <div id="sidebar-content">
+                <ul>
+                    <li><a href="/dashboard" role="button">Dashboard</a></li>
+                    <li><a href="#">User Manager</a></li>
+                    <li><a href="#">Master Forms</a></li>
+                    <li><a href="#">Transaction Forms</a></li>
+                    <li><a href="#">MIS</a></li>
+                    <li><a href="#">Alert</a></li>
+                    <li><a href="/login" role="button">Logout</a></li>
+                </ul>
+                <div class="login-info">
+                    <p>Login User: Power Admin</p>
+                    <p>19-May-2024 | 12:15:56</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="main-content" id="main-content">
+             
+
+            <!-- ENTER YOUR CONTENT HERE -->
+
+
+        </div>
+    </div>
+
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const toggleBtn = document.getElementById("toggle-btn");
+            const sidebar = document.getElementById("sidebar");
+            const mainContent = document.getElementById("main-content");
+
+            toggleBtn.addEventListener("click", function () {
+                sidebar.classList.toggle("collapsed");
+                mainContent.classList.toggle("collapsed");
+
+                var x = document.getElementById("sidebar-content");
+                if (x.style.display === "none") {
+                    x.style.display = "block";
+                } else {
+                    x.style.display = "none";
+                }
+            });
+            
+        });
+    </script>
+</body>
+</html>
