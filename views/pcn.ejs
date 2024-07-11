@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Request Entry Form</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            display: flex;
+            background-color: #EDDFDF;
+        }
+
+        .navbar {
+            position: fixed;
+            top: 0;
+            min-width: 100%;
+            z-index: 1000;
+        }
+
+        .navbar-text {
+            display: flex;
+            flex-direction: row-reverse;
+            justify-content: right;
+            
+            font-size: small;
+            font-weight: 550;
+        }
+
+        .container2 {
+            margin-top: 100px; /* Adjust this value to match the height of your navbar */
+        }
+
+        .container {
+            margin-top: 100px;
+            display: flex;
+            width: 100%;
+        }
+
+        .sidebar {
+            background-color: #B62741;
+            color: white;
+            padding: 20px;
+            width: 250px;
+            height: 100vh; /* Set the height to 100% of the viewport height */
+            transition: width 0.3s;
+            position: fixed;
+            overflow: hidden; /* Hide overflow to make it unscrollable */
+        }
+
+        .sidebar.collapsed {
+            width: 50px;
+        }
+
+        .sidebar ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0; /* Remove default margin */
+        }
+
+        .sidebar ul li {
+            margin: 15px 0;
+        }
+
+        .sidebar ul li a {
+            color: white;
+            text-decoration: none;
+            display: block;
+            padding: 10px 0; /* Add padding for better spacing */
+        }
+
+        .login-info {
+            margin-top: 30px;
+            font-size: 14px;
+        }
+
+        .toggle-btn {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 20px;
+            cursor: pointer;
+            position: absolute;
+            top: 20px;
+            right: 20px;
+        }
+
+        .main-content {
+            margin-left: 270px;
+            flex-grow: 1;
+            padding: 20px;
+            transition: margin-left 0.3s;
+        }
+
+        .main-content.collapsed {
+            margin-left: 70px;
+        }
+
+        .main-content h2 {
+            margin-bottom: 20px;
+        }
+
+        form {
+            background-color: #f5f5f5;
+            padding: 20px;
+            border-radius: 8px;
+        }
+
+        fieldset {
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        legend {
+            padding: 0 10px;
+            font-weight: bold;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            margin-top: 10px;
+        }
+
+        .form-group {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .form-group label,
+        .form-group input,
+        .form-group select {
+            flex: 1;
+            margin-right: 20px;
+        }
+
+        .form-group label:last-child,
+        .form-group input:last-child,
+        .form-group select:last-child {
+            margin-right: 0;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="date"],
+        select,
+        textarea {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        textarea {
+            height: 100px;
+            resize: vertical;
+        }
+
+        input[type="file"] {
+            padding: 8px;
+        }
+
+        .file-upload {
+            display: flex;
+            align-items: center;
+        }
+
+        .file-upload button {
+            margin-left: 10px;
+            padding: 8px 12px;
+            background-color: #d40000;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .form-buttons {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .form-buttons button {
+            background-color: #d40000;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .form-buttons button[type="button"] {
+            background-color: #007bff;
+        }
+
+        .form-buttons button[type="reset"] {
+            background-color: #6c757d;
+        }
+
+        /* Modal container */
+        .modal {
+            display: none; /* Hidden by default */
+            position: fixed; /* Stay in place */
+            z-index: 1; /* Sit on top */
+            left: 0;
+            top: 0;
+            width: 100%; /* Full width */
+            height: 100%; /* Full height */
+            overflow: auto; /* Enable scroll if needed */
+            background-color: rgb(0,0,0); /* Fallback color */
+            background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+        }
+
+        /* Modal content */
+        .modal-content {
+            background-color: #fefefe;
+            margin: 15% auto; /* 15% from the top and centered */
+            padding: 20px;
+            border: 1px solid #888;
+            width: 30%; /* Could be more or less, depending on content */
+            box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+            border-radius: 8px;
+        }
+
+        /* Close button */
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        /* PCN ID in modal */
+        #modalMessage {
+            font-weight: normal;
+            color: black;
+        }
+    </style>
+</head>
+<body>
+    
+    <nav class="navbar">
+        <div class="container-fluid" style="background-color: white; color: black;">
+            <img class="image" src="./bseslogo.png" height="80" width="130"/>
+          
+            <span class="navbar-text" style="font-size: small; font-weight: 550;">
+                Powered by : BSES
+            </span>
+          </div>
+        </div>
+    </nav>
+    
+    <div class="container">
+        <div class="sidebar" id="sidebar">
+            <button class="toggle-btn" id="toggle-btn">&#9776;</button>
+            <div id="sidebar-content">
+                <ul>
+                    <li><a href="/dashboard" role="button">Dashboard</a></li>
+                    <li><a href="#">User Manager</a></li>
+                    <li><a href="#">Master Forms</a></li>
+                    <li><a href="#">Transaction Forms</a></li>
+                    <li><a href="#">MIS</a></li>
+                    <li><a href="#">Alert</a></li>
+                    <li><a href="/login" role="button">Logout</a></li>
+                </ul>
+                <div class="login-info">
+                    <p>Login User: Power Admin</p>
+                    <p>19-May-2024 | 12:15:56</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="main-content" id="main-content">
+            <h2>Request Entry Form</h2>
+            
+            <form id="myform" action="/submit" method="POST" style="background-color: #EDDFDF;">
+                <fieldset>
+                    <legend>User Details</legend>
+                    <div class="form-group">
+                        <label for="name">Name:</label>
+                        <input type="text" id="name" name="name" required>
+                        <label for="emp_code">Employee Code:</label>
+                        <input type="text" id="emp_code" name="emp_code" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email:</label>
+                        <input type="email" id="email" name="email" required>
+                        <label for="mob_no">Mobile Number:</label>
+                        <input type="text" id="mob_no" name="mob_no" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="company">Company:</label>
+                        <input type="text" id="company" name="company" required>
+                        <label for="dept">Department:</label>
+                        <input type="text" id="dept" name="dept" required>
+                    </div>
+                </fieldset>
+                <fieldset>
+                    <legend>Request Details</legend>
+                    <div class="form-group">
+                        <label for="toa">Type of Assignment:</label>
+                        <input type="text" id="toa" name="toa" required><br>
+                        <label for="req_dt">Request Date:</label>
+                        <input type="date" id="req_dt" name="req_dt" required><br>
+                    </div>
+                    <div class="form-group">
+                        <label for="pri_mod">Primary Module:</label>
+                        <input type="text" id="pri_mod" name="pri_mod" required><br>
+                        <label for="sec_mod">Secondary Module:</label>
+                        <input type="text" id="sec_mod" name="sec_mod" required><br>
+                    </div>
+                    <label for="req_det">Requirement Details *</label>
+                    <textarea id="req_det" name="req_det" required></textarea>
+
+                    <label for="res_req">Reasons for Request *</label>
+                    <textarea id="res_req" name="res_req" required></textarea>
+
+                    <label for="bus_benefit">Business Benefit *</label>
+                    <textarea id="bus_benefit" name="bus_benefit" required></textarea>
+
+                    <label for="supp_doc">Supporting Document:</label>
+                    <div class="file-upload">
+                        <input type="file" id="supp_doc" name="supp_doc">
+                        <button type="button">Upload</button>
+                    </div>
+                </fieldset>
+                <div class="form-buttons">
+                    <button type="submit">Submit</button>
+                    <button type="button" onclick="window.location.href='/pcnlist'">View Request</button>
+                    <button type="reset">Clear Form</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- The Modal -->
+    <div id="messageModal" class="modal">
+        <!-- Modal content -->
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <p id="modalMessage"></p>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const toggleBtn = document.getElementById("toggle-btn");
+            const sidebar = document.getElementById("sidebar");
+            const mainContent = document.getElementById("main-content");
+
+            toggleBtn.addEventListener("click", function () {
+                sidebar.classList.toggle("collapsed");
+                mainContent.classList.toggle("collapsed");
+
+                var x = document.getElementById("sidebar-content");
+                if (x.style.display === "none") {
+                    x.style.display = "block";
+                } else {
+                    x.style.display = "none";
+                }
+            });
+
+            const modal = document.getElementById('messageModal');
+            const modalContent = document.getElementById('modalMessage');
+            const closeModalBtn = document.getElementsByClassName('close')[0];
+
+            closeModalBtn.onclick = function() {
+                modal.style.display = "none";
+            };
+
+            window.onclick = function(event) {
+                if (event.target === modal) {
+                    modal.style.display = "none";
+                }
+            };
+
+            const form = document.getElementById('myform');
+
+            form.addEventListener('submit', function(event) {
+                event.preventDefault(); // Prevent the default form submission
+
+                const formData = new FormData(form);
+
+                fetch('/submit', {
+                    method: 'POST',
+                    body: formData
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        const serialid = data.sid;
+                        modalContent.innerHTML = `Form submitted successfully!<br><div style="color:red; font-weight: bold;"> Your PCN id is: REQ${serialid}</div>`;
+                        modal.style.display = "block";
+                        form.reset(); // Optionally clear the form after successful submission
+                    } else {
+                        modalContent.innerHTML = `Error: ${data.message}`;
+                        modal.style.display = "block";
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    modalContent.innerHTML = 'Error submitting form';
+                    modal.style.display = "block";
+                });
+            });
+
+            
+        });
+    </script>
+</body>
+</html>

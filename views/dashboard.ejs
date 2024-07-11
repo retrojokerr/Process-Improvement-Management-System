@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BSES Dashboard</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #B62741;
+            color: #FFB9B4;
+        }
+        .navbar{
+            background-color: #FFF3F3; 
+            color: black;
+            box-shadow: 0px 0px 10px #00000040;
+            margin-bottom: 0;
+            border-radius: 0;
+        }
+        .container {
+            text-align: center;
+            margin-top: 50px;
+        }
+        .btn-custom {
+            background-color: #921F34;
+            border: none;
+            color: white;
+            padding: 20px;
+            margin: 20px;
+            width: 150px;
+            height: 150px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            vertical-align: middle;
+            cursor: pointer;
+            text-decoration: none;
+        }
+        .footer {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            background-color: #3986DD;
+            color: white;
+            text-align: center;
+            padding: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container-fluid">
+            <img class="image" src="./bseslogo.png" height="80" width="130"/>
+            <span class="navbar-text" style="font-size: small; font-weight: 550;">
+                Powered by : BSES
+            </span>
+        </div>
+    </nav>
+    <div class="container">
+        <h1>WELCOME</h1> 
+        <% if(typeof username != 'undefined'){ %>
+            <h1><span id="username"><%= username.toUpperCase() %></span></h1>
+        <% } %>
+        <div class="row justify-content-center" style="margin-top: 80px; margin-left: 40px;">
+            <div class="col-md-3">
+                <a href="/pcn" class="btn-custom">PCN</a>
+            </div>
+            <div class="col-md-3">
+                <a href="/txnform" class="btn-custom">Transaction Forms</a>
+            </div>
+            <div class="col-md-3">
+                <div class="btn-custom" id="alertButton">Alert</div>
+            </div>
+            <div class="col-md-3">
+                <a href="/login" class="btn-custom">Logout</a>
+            </div>
+        </div>
+    </div>
+    <div class="footer">
+        Login User: <% if(typeof username != 'undefined'){username}%> | <%= currentDate %> | <%= currentTime%>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="alertModal" tabindex="-1" role="dialog" aria-labelledby="alertModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="alertModalLabel" style="color: #921F34;">Alert</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body" style="color: black;">
+            You have no alerts.
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        document.getElementById('alertButton').addEventListener('click', function() {
+            $('#alertModal').modal('show');
+        });
+    </script>
+</body>
+</html>

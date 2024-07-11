@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Request Entry Form</title>
+    <link rel="stylesheet" href="styles.css">
+    <script defer src="script.js"></script>
+</head>
+
+<body>
+    
+    <nav class="navbar">
+        <div class="container-fluid" style="background-color: white; color: black;">
+            <img class="image" src="./bseslogo.png" height="80" width="130"/>
+          
+            <span class="navbar-text" style="font-size: small; font-weight: 550;">
+                Powered by : BSES
+            </span>
+          </div>
+        </div>
+    </nav>
+    
+        <div class="container">
+            
+        <div class="sidebar" id="sidebar">
+            <button class="toggle-btn" id="toggle-btn">&#9776;</button>
+            <div id="sidebar-content">
+                
+                <ul>
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#">PCN</a></li>
+                    <li><a href="#">User Manager</a></li>
+                    <li><a href="#">Master Forms</a></li>
+                    <li><a href="#">Transaction Forms</a></li>
+                    <li><a href="#">MIS</a></li>
+                    <li><a href="#">Alert</a></li>
+                    <li><a href="#">Logout</a></li>
+                </ul>
+                <div class="login-info">
+                    <p>Login User: Power Admin</p>
+                    <p>19-May-2024 | 12:15:56</p>
+                </div>
+            </div>
+            
+        </div>
+        <div class="main-content">
+            
+            <h2>Request Entry Form</h2>
+            
+            <form style="background-color: #EDDFDF;">
+                <fieldset>
+                    <legend>User Details</legend>
+                    <div class="form-group">
+                        <label for="name">Name *</label>
+                        <input type="text" id="name" name="name" required>
+                        <label for="employee-code">Employee Code *</label>
+                        <input type="text" id="employee-code" name="employee-code" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email ID *</label>
+                        <input type="email" id="email" name="email" required>
+                        <label for="mobile">Mobile Number *</label>
+                        <input type="text" id="mobile" name="mobile" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="company">Company *</label>
+                        <select id="company" name="company" required>
+                            <option value="">- SELECT -</option>
+                            <!-- Options here -->
+                        </select>
+                        <label for="department">Department *</label>
+                        <select id="department" name="department" required>
+                            <option value="">- SELECT -</option>
+                            <!-- Options here -->
+                        </select>
+                    </div>
+                </fieldset>
+                <fieldset>
+                    <legend>Request Details</legend>
+                    <div class="form-group">
+                        <label for="type-of-assignment">Type of Assignment *</label>
+                        <select id="type-of-assignment" name="type-of-assignment" required>
+                            <option value="">- SELECT -</option>
+                            <!-- Options here -->
+                        </select>
+                        <label for="request-date">Request Date *</label>
+                        <input type="date" id="request-date" name="request-date" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="primary-module">Primary Module *</label>
+                        <select id="primary-module" name="primary-module" required>
+                            <option value="">- SELECT -</option>
+                            <!-- Options here -->
+                        </select>
+                        <label for="secondary-module">Secondary Module *</label>
+                        <select id="secondary-module" name="secondary-module" required>
+                            <option value="">- SELECT -</option>
+                            <!-- Options here -->
+                        </select>
+                    </div>
+                    <label for="requirement-details">Requirement Details *</label>
+                    <textarea id="requirement-details" name="requirement-details" required></textarea>
+
+                    <label for="reasons-for-request">Reasons for Request *</label>
+                    <textarea id="reasons-for-request" name="reasons-for-request" required></textarea>
+
+                    <label for="business-benefit">Business Benefit *</label>
+                    <textarea id="business-benefit" name="business-benefit" required></textarea>
+
+                    <label for="supporting-document">Supporting Document:</label>
+                    <div class="file-upload">
+                        <input type="file" id="supporting-document" name="supporting-document">
+                        <button type="button">Upload</button>
+                    </div>
+                </fieldset>
+                <div class="form-buttons">
+                    <button type="submit">Submit</button>
+                    <button type="button">View Request</button>
+                    <button type="reset">Clear Form</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    
+    
+    
+</body>
+</html>

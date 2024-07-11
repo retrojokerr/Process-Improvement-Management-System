@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Request Entry Details: REQ<%= entry.id %></title>
+  <style>
+    body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+    }
+
+    .container {
+    padding: 20px;
+    }
+
+    header {
+    background-color: #B62741;
+    color: white;
+    padding: 10px 0;
+    text-align: center;
+    }
+
+    .details {
+    background-color: white;
+    padding: 20px;
+    margin-top: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    textarea {
+    width: 100%;
+    height: 50px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    }
+
+    .status-bar {
+    margin-top: 20px;
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    }
+
+    .progress-line {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    height: 5px;
+    background-color: #ccc;
+    z-index: 1;
+    }
+
+    .status-step {
+    position: relative;
+    z-index: 2;
+    }
+
+    .status-step button {
+    background-color: white;
+    border: 2px solid #ccc;
+    border-radius: 50%;
+    padding: 10px 20px;
+    cursor: pointer;
+    outline: none;
+    font-size: 14px;
+    }
+
+    .status-step.completed button {
+    border-color: green;
+    }
+
+    .status-step .checkmark {
+    position: absolute;
+    top: -20px;
+    right: -10px;
+    color: green;
+    font-size: 20px;
+    }
+
+    .modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    justify-content: center;
+    align-items: center;
+    }
+
+    .modal-content {
+    background-color: white;
+    padding: 20px;
+    border-radius: 5px;
+    width: 80%;
+    max-width: 500px;
+    text-align: center;
+    }
+
+    .close {
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    font-size: 24px;
+    cursor: pointer;
+    }
+
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1><h1>Request Entry Details: REQ-<%= entry.id %></h1></h1>
+    </header>
+    
+    <section class="details">
+      <p><strong>Type of Assignment:</strong> <%= entry.toa %></p>
+      <p><strong>Primary/Secondary Module:</strong> <%= entry.pri_mod %></p>
+      <p><strong>Requirement Details:</strong></p>
+      <%= entry.req_det %>
+      <p><strong>Reasons for Request:</strong></p>
+      <%= entry.res_req %>
+      <p><strong>Business Benefit:</strong></p>
+      <%= entry.bus_benefit %>
+      <p><strong>Request Initiated Date/Time:</strong> <%= entry.req_dt %></p>
+      <p><strong>Request Initiated By:</strong> <%= entry.company %></p>
+      <p><a href="#">View Log Details</a></p>
+    </section>
+    
+    <section class="status-bar">
+      <div class="progress-line"></div>
+      <div class="status-step completed">
+        <button class="modal-btn" data-modal="modal-user-details">User Details</button>
+        <div class="checkmark">&#10003;</div>
+      </div>
+      <div class="status-step completed">
+        <button class="modal-btn" data-modal="modal-it-view">IT View</button>
+        <div class="checkmark">&#10003;</div>
+      </div>
+      <div class="status-step completed">
+        <button class="modal-btn" data-modal="modal-bpi">BPI</button>
+        <div class="checkmark">&#10003;</div>
+      </div>
+      <div class="status-step">
+        <button class="modal-btn" data-modal="modal-project-manager">Project Manager</button>
+      </div>
+      <div class="status-step">
+        <button class="modal-btn" data-modal="modal-it-council">IT Council</button>
+      </div>
+    </section>
+  </div>
+
+  <!-- Modals -->
+  <div id="modal-user-details" class="modal">
+    <div class="modal-content">
+      <span class="close" data-modal="modal-user-details">&times;</span>
+      <h2>User Details</h2>
+      <p>Details about user...</p>
+    </div>
+  </div>
+
+  <div id="modal-it-view" class="modal">
+    <div class="modal-content">
+      <span class="close" data-modal="modal-it-view">&times;</span>
+      <h2>IT View</h2>
+      <p>Details about IT View...</p>
+    </div>
+  </div>
+
+  <div id="modal-bpi" class="modal">
+    <div class="modal-content">
+      <span class="close" data-modal="modal-bpi">&times;</span>
+      <h2>BPI</h2>
+      <p>Details about BPI...</p>
+    </div>
+  </div>
+
+  <div id="modal-project-manager" class="modal">
+    <div class="modal-content">
+      <span class="close" data-modal="modal-project-manager">&times;</span>
+      <h2>Project Manager</h2>
+      <p>Details about Project Manager...</p>
+    </div>
+  </div>
+
+  <div id="modal-it-council" class="modal">
+    <div class="modal-content">
+      <span class="close" data-modal="modal-it-council">&times;</span>
+      <h2>IT Council</h2>
+      <p>Details about IT Council...</p>
+    </div>
+  </div>
+
+  <script>
+        document.addEventListener('DOMContentLoaded', () => {
+        const modalButtons = document.querySelectorAll('.modal-btn');
+        const modals = document.querySelectorAll('.modal');
+        const closeButtons = document.querySelectorAll('.close');
+
+        modalButtons.forEach(button => {
+            button.addEventListener('click', () => {
+            const modalId = button.getAttribute('data-modal');
+            document.getElementById(modalId).style.display = 'flex';
+            });
+        });
+
+        closeButtons.forEach(button => {
+            button.addEventListener('click', () => {
+            const modalId = button.getAttribute('data-modal');
+            document.getElementById(modalId).style.display = 'none';
+            });
+        });
+
+        window.addEventListener('click', event => {
+            modals.forEach(modal => {
+            if (event.target === modal) {
+                modal.style.display = 'none';
+            }
+            });
+        });
+        });
+
+  </script>
+</body>
+</html>
